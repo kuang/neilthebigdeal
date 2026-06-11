@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Neil Khandwala — The Big Deal</title>
+<meta name="description" content="A Hall of Fame tribute to Neil Khandwala, aka The Big Deal." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,600;0,800;1,500&family=Fraunces:ital,opsz,wght@1,9..144,500;0,9..144,600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #0b0d0c;
+    --ink-2: #12161400;
+    --panel: #16191a;
+    --panel-2: #1d2123;
+    --gold: #f5c518;
+    --gold-hot: #ffd84d;
+    --green: #1fd07a;
+    --paper: #f4efe4;
+    --muted: #9aa0a0;
+    --line: rgba(244, 239, 228, 0.10);
+    --shadow: 0 24px 60px -18px rgba(0,0,0,0.75);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'Archivo', sans-serif;
+    line-height: 1.5;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Grain + glow atmosphere */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(1100px 700px at 78% -8%, rgba(245,197,24,0.16), transparent 60%),
+      radial-gradient(900px 600px at 8% 18%, rgba(31,208,122,0.10), transparent 60%);
+  }
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.045;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .wrap { position: relative; z-index: 2; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    min-height: 100svh;
+    padding: clamp(20px, 4vw, 48px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    font-family: 'Archivo', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+  }
+  .topbar .badge {
+    color: var(--ink);
+    background: var(--gold);
+    padding: 5px 12px;
+    border-radius: 100px;
+    letter-spacing: 0.18em;
+  }
+
+  .hero-mid { display: flex; flex-direction: column; gap: 8px; padding: 6vh 0; }
+
+  .eyebrow {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: clamp(18px, 3.2vw, 30px);
+    color: var(--gold-hot);
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: rise 0.8s cubic-bezier(.2,.8,.2,1) 0.1s forwards;
+  }
+
+  .megatitle {
+    font-family: 'Anton', sans-serif;
+    text-transform: uppercase;
+    line-height: 0.84;
+    letter-spacing: -0.01em;
+    font-size: clamp(58px, 16vw, 240px);
+    color: var(--paper);
+  }
+  .megatitle .l1 { display: block; overflow: hidden; }
+  .megatitle .l2 {
+    display: block;
+    overflow: hidden;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--gold);
+    text-stroke: 1.5px var(--gold);
+  }
+  .megatitle span span {
+    display: inline-block;
+    transform: translateY(110%);
+    animation: rise 0.9s cubic-bezier(.2,.85,.15,1) forwards;
+  }
+  .megatitle .l1 span { animation-delay: 0.18s; }
+  .megatitle .l2 span { animation-delay: 0.34s; }
+
+  .tagline {
+    max-width: 620px;
+    margin-top: 26px;
+    font-size: clamp(15px, 1.9vw, 19px);
+    color: var(--muted);
+    opacity: 0;
+    animation: rise 0.8s ease 0.6s forwards;
+  }
+  .tagline b { color: var(--paper); font-weight: 700; }
+
+  /* Stat strip */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(12px, 2vw, 28px);
+    border-top: 1px solid var(--line);
+    padding-top: 22px;
+    opacity: 0;
+    animation: rise 0.8s ease 0.8s forwards;
+  }
+  .stat .num {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(30px, 5.2vw, 60px);
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat .lbl {
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+
+  @keyframes rise {
+    from { transform: translateY(110%); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+  }
+  /* tagline/eyebrow use opacity only via wrapper, allow translate */
+  .eyebrow, .tagline, .stats { transform: translateY(20px); }
+  .eyebrow { animation-name: riseSoft; }
+  .tagline { animation-name: riseSoft; }
+  .stats { animation-name: riseSoft; }
+  @keyframes riseSoft {
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  /* ---------- MARQUEE ---------- */
+  .marquee {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--gold);
+    color: var(--ink);
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 12px 0;
+  }
+  .marquee-track {
+    display: inline-flex;
+    gap: 36px;
+    padding-left: 36px;
+    font-family: 'Anton', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: clamp(16px, 2.4vw, 26px);
+    animation: scroll 26s linear infinite;
+  }
+  .marquee-track span { display: inline-flex; align-items: center; gap: 36px; }
+  .marquee-track .dot { color: rgba(11,13,12,0.45); }
+  @keyframes scroll { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; }
+    .megatitle span span, .eyebrow, .tagline, .stats { animation: none !important; transform: none !important; opacity: 1 !important; }
+  }
+
+  /* ---------- GALLERY ---------- */
+  .gallery-head {
+    padding: clamp(40px, 7vw, 90px) clamp(20px, 4vw, 48px) clamp(18px, 3vw, 34px);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .gallery-head h2 {
+    font-family: 'Anton', sans-serif;
+    text-transform: uppercase;
+    font-size: clamp(34px, 7vw, 84px);
+    line-height: 0.9;
+    letter-spacing: -0.01em;
+  }
+  .gallery-head h2 em {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 500;
+    color: var(--gold);
+    text-transform: none;
+  }
+  .gallery-head p {
+    color: var(--muted);
+    max-width: 320px;
+    font-size: 14px;
+  }
+
+  .gallery {
+    padding: 0 clamp(14px, 4vw, 48px) clamp(60px, 8vw, 110px);
+    column-count: 3;
+    column-gap: clamp(14px, 1.6vw, 22px);
+  }
+  @media (max-width: 1000px) { .gallery { column-count: 2; } }
+  @media (max-width: 620px)  { .gallery { column-count: 1; } }
+
+  .card {
+    break-inside: avoid;
+    margin-bottom: clamp(14px, 1.6vw, 22px);
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    cursor: zoom-in;
+    position: relative;
+    box-shadow: var(--shadow);
+    transition: transform .35s cubic-bezier(.2,.8,.2,1), border-color .35s, box-shadow .35s;
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  .card.in { opacity: 1; transform: translateY(0); }
+  .card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(245,197,24,0.55);
+    box-shadow: 0 30px 70px -20px rgba(0,0,0,0.85);
+  }
+  .card img { display: block; width: 100%; height: auto; }
+  .card .cap {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 13px 15px;
+    font-size: 12.5px;
+    color: var(--paper);
+    border-top: 1px solid var(--line);
+  }
+  .card .cap .tag {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 10px;
+    color: var(--ink);
+    background: var(--green);
+    padding: 3px 8px;
+    border-radius: 100px;
+    flex: none;
+  }
+  .card .cap span { color: var(--muted); }
+
+  .empty {
+    grid-column: 1/-1;
+    text-align: center;
+    color: var(--muted);
+    padding: 40px;
+    border: 1px dashed var(--line);
+    border-radius: 14px;
+  }
+
+  /* ---------- LIGHTBOX ---------- */
+  .lb {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: rgba(6,7,7,0.92);
+    backdrop-filter: blur(8px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(14px, 4vw, 48px);
+  }
+  .lb.open { display: flex; }
+  .lb img {
+    max-width: 100%;
+    max-height: 86vh;
+    border-radius: 12px;
+    border: 1px solid rgba(245,197,24,0.4);
+    box-shadow: 0 40px 100px -20px rgba(0,0,0,0.9);
+  }
+  .lb-close {
+    position: absolute;
+    top: clamp(14px, 3vw, 28px);
+    right: clamp(14px, 3vw, 28px);
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--paper);
+    font-size: 22px;
+    cursor: pointer;
+    display: grid; place-items: center;
+    transition: background .2s, transform .2s;
+  }
+  .lb-close:hover { background: var(--gold); color: var(--ink); transform: rotate(90deg); }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: clamp(34px, 6vw, 70px) clamp(20px, 4vw, 48px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  footer .big {
+    font-family: 'Anton', sans-serif;
+    text-transform: uppercase;
+    font-size: clamp(20px, 3vw, 32px);
+    color: var(--paper);
+    letter-spacing: 0.01em;
+  }
+  footer a { color: var(--gold); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="topbar">
+      <div>Miter&nbsp;·&nbsp;Hall of Fame</div>
+      <div class="badge">★ Certified Big Deal</div>
+    </div>
+
+    <div class="hero-mid">
+      <div class="eyebrow">Ladies and gentlemen, presenting…</div>
+      <h1 class="megatitle">
+        <span class="l1"><span>Neil</span></span>
+        <span class="l2"><span>The Big Deal</span></span>
+      </h1>
+      <p class="tagline">
+        Engineer. Closer. Customer hero. When the rollout is on the line and the
+        Slack messages get frantic, <b>Neil Khandwala</b> ships the fix before the
+        sigh of relief lands. Scroll for the receipts. 👇
+      </p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="num">∞</div><div class="lbl">Deals, bigness of</div></div>
+      <div class="stat"><div class="num">100%</div><div class="lbl">Customer days made</div></div>
+      <div class="stat"><div class="num">🐐</div><div class="lbl">Certified status</div></div>
+      <div class="stat"><div class="num">0ms</div><div class="lbl">Response to panic</div></div>
+    </div>
+  </header>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>
+        THE BIG DEAL <i class="dot">●</i> NEIL GOAT <i class="dot">●</i> LETS GOOOOOO <i class="dot">●</i>
+        SHIPPED IT <i class="dot">●</i> THE BIG DEAL <i class="dot">●</i> NEIL GOAT <i class="dot">●</i>
+        LETS GOOOOOO <i class="dot">●</i> SHIPPED IT <i class="dot">●</i>
+      </span>
+      <span>
+        THE BIG DEAL <i class="dot">●</i> NEIL GOAT <i class="dot">●</i> LETS GOOOOOO <i class="dot">●</i>
+        SHIPPED IT <i class="dot">●</i> THE BIG DEAL <i class="dot">●</i> NEIL GOAT <i class="dot">●</i>
+        LETS GOOOOOO <i class="dot">●</i> SHIPPED IT <i class="dot">●</i>
+      </span>
+    </div>
+  </div>
+
+  <!-- GALLERY -->
+  <section class="gallery-head">
+    <h2>The <em>Receipts</em></h2>
+    <p>Real shoutouts, real wins. Tap any screenshot to blow it up.</p>
+  </section>
+
+  <main class="gallery" id="gallery"></main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="big">Neil "The Big Deal" Khandwala</div>
+    <div>Built with admiration by the team at <a href="https://miter.com" target="_blank" rel="noopener">Miter</a>. 🐐</div>
+  </footer>
+
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb">
+  <button class="lb-close" id="lbClose" aria-label="Close">×</button>
+  <img id="lbImg" src="" alt="" />
+</div>
+
+<script>
+  /* ============================================================
+     ADD MORE SCREENSHOTS HERE.
+     1. Drop the image file into the /images folder.
+     2. Add a line below: { src, tag, cap }
+        - src: path to the image
+        - tag: short colored label (e.g. "Shoutout", "Win")
+        - cap: one-line caption
+     Sizes don't matter — the masonry layout handles any dimensions.
+     ============================================================ */
+  const SHOTS = [
+    {
+      src: "images/timesheet-shoutout.png",
+      tag: "Shoutout",
+      cap: "Saved a rollout mid-training — owner's sigh of relief, certified."
+    },
+    {
+      src: "images/best-support-experience.png",
+      tag: "Customer Love",
+      cap: "“He was incredible — one of the best support experiences I’ve had.”"
+    },
+    // { src: "images/your-next-screenshot.png", tag: "Win", cap: "What happened" },
+  ];
+
+  const gallery = document.getElementById("gallery");
+
+  if (!SHOTS.length) {
+    gallery.innerHTML = '<div class="empty">No screenshots yet — drop them in <code>/images</code> and add them to <code>SHOTS</code> in index.html.</div>';
+  } else {
+    SHOTS.forEach((s, i) => {
+      const card = document.createElement("figure");
+      card.className = "card";
+      card.style.transitionDelay = (i * 70) + "ms";
+      card.innerHTML =
+        '<img src="' + s.src + '" alt="' + (s.cap || "Screenshot of Neil being a big deal") + '" loading="lazy" />' +
+        (s.tag || s.cap
+          ? '<figcaption class="cap">' +
+              (s.tag ? '<span class="tag">' + s.tag + '</span>' : '') +
+              '<span>' + (s.cap || '') + '</span>' +
+            '</figcaption>'
+          : '');
+      card.addEventListener("click", () => openLightbox(s.src, s.cap));
+      gallery.appendChild(card);
+    });
+  }
+
+  /* Reveal cards on scroll */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll(".card").forEach((c) => io.observe(c));
+
+  /* Lightbox */
+  const lb = document.getElementById("lb");
+  const lbImg = document.getElementById("lbImg");
+  function openLightbox(src, alt) {
+    lbImg.src = src;
+    lbImg.alt = alt || "";
+    lb.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+  function closeLightbox() {
+    lb.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+  document.getElementById("lbClose").addEventListener("click", closeLightbox);
+  lb.addEventListener("click", (e) => { if (e.target === lb) closeLightbox(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLightbox(); });
+</script>
+</body>
+</html>
